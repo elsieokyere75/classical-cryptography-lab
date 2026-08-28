@@ -2,10 +2,13 @@
 
 from math import gcd
 
+from src.number_theory.modular_exponentiation import modular_pow
 from src.number_theory.modular_inverse import modular_inverse
 
 
-def generate_keypair(p: int, q: int, e: int) -> tuple[tuple[int, int], tuple[int, int]]:
+def generate_keypair(
+    p: int, q: int, e: int
+) -> tuple[tuple[int, int], tuple[int, int]]:
     """Generate an RSA public/private key pair.
 
     Parameters:
@@ -39,3 +42,30 @@ def generate_keypair(p: int, q: int, e: int) -> tuple[tuple[int, int], tuple[int
     private_key = (d, n)
 
     return public_key, private_key
+
+
+def encrypt(message: int, public_key: tuple[int, int]) -> int:
+    """Encrypt a message using an RSA public key.
+
+    RSA encryption:
+        c = m^e mod n
+    """
+    e, n = public_key
+
+    if message < 0 or message >= n:
+        raise ValueError("message must satisfy 0 <= message < n")
+
+    return modular_pow(message, e, n)
+
+def decrypt(ciphertext: int, private_key: tuple[int, int]) -> int:
+    """Decrypt an RSA ciphertext using a private key.
+
+    RSA decryption:
+        m = c^d mod n
+    """
+    d, n = private_key
+
+    if ciphertext < 0 or ciphertext >= n:
+        raise ValueError("ciphertext must satisfy 0 <= ciphertext < n")
+
+    return modular_pow(ciphertext, d, n)
