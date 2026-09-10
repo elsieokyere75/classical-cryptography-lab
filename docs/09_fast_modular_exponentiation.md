@@ -1,10 +1,6 @@
-Fast Modular Exponentiation
-**Author:** Elsie Okyere  
-**Project:** Classical Cryptography Laboratory  
+# Fast Modular Exponentiation
 
-
-
-1. What is modular exponentiation?
+## 1. What is modular exponentiation?
 
 Modular exponentiation computes:
 
@@ -26,7 +22,7 @@ $$
 3^4\equiv1\pmod5
 $$
 
-2. Why do we need a fast algorithm?
+## 2. Why do we need a fast algorithm?
 
 Cryptographic algorithms such as RSA require operations of the form:
 
@@ -40,9 +36,9 @@ $$
 c^d\bmod n
 $$
 
-The exponents can be very large. Fast modular exponentiation uses repeated squaring.
+The exponents can be very large. Fast modular exponentiation uses **repeated squaring**.
 
-3. Repeated squaring
+## 3. Repeated squaring
 
 Suppose:
 
@@ -84,7 +80,7 @@ $$
 =\boxed{8}
 $$
 
-4. Binary representation
+## 4. Binary representation
 
 Repeated squaring works because every positive integer has a binary representation.
 
@@ -108,8 +104,9 @@ $$
 
 and multiplies only the powers required by the binary representation.
 
-5. Algorithm
+## 5. Algorithm
 
+```text
 result = 1
 base = base mod modulus
 
@@ -119,8 +116,9 @@ while exponent > 0:
 
     base = (base * base) mod modulus
     exponent = exponent // 2
+```
 
-6. Complexity
+## 6. Complexity
 
 The exponent is divided by 2 at every iteration, so the number of iterations is approximately:
 
@@ -130,7 +128,7 @@ $$
 
 where $b$ is the exponent.
 
-7. Cryptographic importance
+## 7. Cryptographic importance
 
 RSA encryption:
 
@@ -152,11 +150,11 @@ $$
 
 Understanding this algorithm is therefore an important prerequisite for RSA and Diffie-Hellman.
 
-8. Implementation limitations
+## 8. Implementation limitations
 
 This implementation is educational, not production cryptography. Real cryptographic implementations must also consider constant-time behavior, side-channel resistance, secure parameters, and secure key generation.
 
-9. Week 1 progression
+## 9. Week 1 progression
 
 $$
 \text{GCD}
